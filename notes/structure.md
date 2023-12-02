@@ -2,12 +2,12 @@
 
 1. phenotypes x
 2. HGNC x
-3. HGMD
-4. genes
+3. HGMD x
+4. genes x
 5. gene_phenotype x
-6. CLINSIG
-7. clinvar_max_af
-8. transcript_info
+6. CLINSIG x
+7. clinvar_max_af x
+8. transcript_info x
 
 ### gene_clinical_synopsis
 
@@ -76,18 +76,97 @@ Note:
 }
 ```
 
-Note:
-- Based on `genes` table
+### genes
 
 Number of versions (2):
 - English
 - Chinese
 
+Note:
+- Based on `genes` table
+
 ```json
 {
     "gene_name": "genes.name",
     "full_name": "genes.full_name",
-    "function": "genes.function" //  Chinese | English 
+    "function": "genes.function", //  Chinese | English 
+    "GHR_metadata": "genes.GHR_metadata" // Chinese | English
 }
 ```
 
+### hgmd
+
+Number of versions (1):
+- English
+
+Note:
+- Based on `HGMD` table
+
+```json
+{
+    "key": "HGMD.chrom_HGMD.pos_HGMD.ref_HGMD.alt",
+    "chrom": "HGMD.chrom",
+    "pos": "HGMD.pos",
+    "ref": "HGMD.ref",
+    "alt": "HGMD.alt",
+    "info": "HGMD.info"
+}
+```
+
+### clinsig
+
+Number of versions (1):
+- English
+
+Note:
+- Based on `CLINSIG` table.
+
+```json
+{
+    "key": "CLINSIG.chrom_CLINSIG.pos_CLINSIG.ref_CLINSIG.alt",
+    "chrom": "CLINSIG.chrom",
+    "pos": "CLINSIG.pos",
+    "ref": "CLINSIG.ref",
+    "alt": "CLINSIG.alt",
+    "variant_id": "CLINSIG.variant_id",
+    "clinsig": "CLINSIG.CLINSIG",
+    "clinsig_ch": "CLINSIG.CLINSIG_CH"
+}
+```
+
+### clinvar_max_af
+
+Number of versions (1):
+- English
+
+Note:
+- Based on `clinvar_max_af` table.
+
+Purpose:
+- Find from `gene name`
+
+```json
+{
+    "gene_name": "clinvar_max_af.gene",
+    "max_af": "clinvar_max_af.MAX_AF",
+    "max_af_pops": "clinvar_max_af.MAX_AF_POPS"
+}
+```
+
+### transcript_info
+
+Number of versions (1):
+- English
+
+Note: 
+- Based on table `transcript_info`.
+
+```json
+{
+    "ENSG": "transcript_info.ENSG",
+    "ENST": "transcript_info.ENST",
+    "gene_name": "transcript_info.gene",
+    "length": "transcript_info.length",
+    "transcript": "transcript_info.transcript"
+}
+```
