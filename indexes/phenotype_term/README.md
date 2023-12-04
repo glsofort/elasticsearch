@@ -1,5 +1,3 @@
-
-
 ## Create index
 
 ```bash
@@ -36,6 +34,14 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT "https://localhost:
                 }
             }
         }
+    },
+    "mappings":{
+        "properties": {
+            "term": {
+                "type": "text",
+                "analyzer": "edgeNGram_analyzer"
+            }
+        }
     }
 }'
 ```
@@ -43,5 +49,18 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT "https://localhost:
 ## Import
 
 ```bash
-python3 import.py --file data/phenotype_term.txt --cacerts ../../http_ca.crt --name phenotype_term --password $ELASTIC_PASSWORD
+python3 import.py --file term.txt --cacerts ../../http_ca.crt --password $ELASTIC_PASSWORD
+```
+
+## Test
+
+```bash
+curl -XPOST "https://localhost:9200/phenotype_term/_search?pretty" -H 'Content-Type: application/json' --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -d '{
+    "size": 50,
+    "query": {
+        "match": {
+            "term": { "query": "macrocephaly", "operator": "and"  }
+        }
+    }
+}'
 ```

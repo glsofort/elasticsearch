@@ -2,28 +2,35 @@
 
 ## Common Command
 
-### View index information
-
-```bash
-curl -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_terms?pretty
-
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_terms?pretty
-```
-
-```bash
-curl -X GET "localhost:9200/hpo_omim_terms/_settings?pretty"
-
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/hpo_omim_terms/_settings?pretty
-```
-
+### View all indexes
 ```bash
 curl http://localhost:9200/_cat/indices
 
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/indices
 ```
 
-## Import data
+### View index information
+```bash
+curl -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_term?pretty
 
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_term?pretty
+```
+
+### View index settings
+```bash
+curl -X GET "localhost:9200/hpo_omim_terms/_settings?pretty"
+
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/hpo_omim_terms/_settings?pretty
+```
+
+### Remove index
+```bash
+curl -XDELETE "localhost:9200/phenotype_term"
+
+curl  -XDELETE --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/phenotype_term
+```
+
+## Import data
 
 ### Import
 ```bash
@@ -108,10 +115,20 @@ curl -XPUT "http://localhost:9200/gene_hpo_term?pretty" -H 'Content-Type: applic
   }
 }'
 ```
+curl -X GET "localhost:9200/my-index-000001/_search?from=40&size=20&pretty" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "term": {
+      "user.id": "kimchy"
+    }
+  }
+}
+'
+
 
 ## Examples
 ```bash
-curl -X GET "localhost:9200/gene_hpo_term/_doc/_search?pretty" -H 'Content-Type: application/json' -d '
+curl -X GET "localhost:9200/gene_hpo_term/_search?pretty" -H 'Content-Type: application/json' -d '
 { 
     "query": { 
         "bool": { 

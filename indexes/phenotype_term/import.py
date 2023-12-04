@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # Add arguments
     parser.add_argument('--cacerts', type=str, help='Ca cert file path', required=True)
     parser.add_argument('--file', type=str, help='Data file', required=True)
-    parser.add_argument('--pw',  type=str, help='Password', required=True)
+    parser.add_argument('--password',  type=str, help='Password', required=True)
 
 
     # Parse the command-line arguments
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     # Access the argument values
     cacerts = args.cacerts
     file = args.file
-    password=args.pw
+    password=args.password
 
     # Call the main function with the argument values
     main(file_path=file, ca_certs=cacerts, password=password)

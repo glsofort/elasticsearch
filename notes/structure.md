@@ -42,7 +42,7 @@ Purpose:
 }
 ```
 
-### phenotype_term
+### phenotype_term x
 
 Number of versions: 1 (only english term only)
 
