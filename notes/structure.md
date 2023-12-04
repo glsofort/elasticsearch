@@ -32,14 +32,30 @@ Purpose:
 1. Find `clinical_synopsis` from `gene_name`
 2. Find `gene_name` from terms (exist in `pheno_name` and `clinical_synopsis` field)
 
+Format:
 ```json
 {
     "gene_name": "gene_clinical_synopsis.gene_name",
     "gene_mim_number": "gene_clinical_synopsis.gene_omim",
     "pheno_mim_number": "gene_clinical_synopsis.pheno_omim",
     "pheno_name": "phenotypes.name", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
-    "clinical_synopsis": "phenotypes.clinical_synopsis" //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
+    "clinical_synopsis": "phenotypes.clinical_synopsis", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
+    "pheno_description": "phenotypes.description"
 }
+```
+
+Data retrieval:
+```sql
+SELECT
+	g.gene_name as gene_name,
+	g.gene_omim as gene_mim_number,
+	g.pheno_omim as pheno_mim_number,
+	p.name as pheno_name,
+	p.clinical_synopsis as clinical_synopsis,
+	p.description as pheno_description
+FROM
+	gene_clinical_synopsis AS g
+	LEFT JOIN phenotypes AS p ON g.pheno_omim = p.omim_number
 ```
 
 ### phenotype_term x
@@ -62,7 +78,7 @@ Purpose:
 ```
 
 
-### gene_phenotype
+### gene_phenotype x
 
 Number of versions: 1 (using smartcn analyzer for term data contains both chinese & english)
 
