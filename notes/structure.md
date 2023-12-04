@@ -77,11 +77,10 @@ Purpose:
 ```json
 {
     "gene_name": "gene_phenotype.gene_symbol",
-    "term": "gene_phenotype.HPO_search", //  Can be chinese or english
+    "term": "gene_phenotype.HPO_term_name", //  Can be chinese or english
     "english_term": "gene_phenotype.HPO_text",
-    "term_name": "gene_phenotype.HPO_term_name",
-    "omim_id": "gene_phenotype.Disease_ID",
-    "hpo_id": "gene_phenotype.HPO_ID",
+    "disease_id": "gene_phenotype.Disease_ID",
+    "HPO_id": "gene_phenotype.HPO_ID",
     "source": "gene_phenotype.Source",
     "gene_id": "gene_phenotype.gene_id"
 }

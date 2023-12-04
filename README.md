@@ -25,9 +25,9 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/hp
 
 ### Remove index
 ```bash
-curl -XDELETE "localhost:9200/phenotype_term"
+curl -XDELETE "localhost:9200/gene_phenotype"
 
-curl  -XDELETE --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/phenotype_term
+curl  -XDELETE --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/gene_phenotype
 ```
 
 ## Import data
@@ -115,37 +115,4 @@ curl -XPUT "http://localhost:9200/gene_hpo_term?pretty" -H 'Content-Type: applic
   }
 }'
 ```
-curl -X GET "localhost:9200/my-index-000001/_search?from=40&size=20&pretty" -H 'Content-Type: application/json' -d'
-{
-  "query": {
-    "term": {
-      "user.id": "kimchy"
-    }
-  }
-}
-'
 
-
-## Examples
-```bash
-curl -X GET "localhost:9200/gene_hpo_term/_search?pretty" -H 'Content-Type: application/json' -d '
-{ 
-    "query": { 
-        "bool": { 
-            "should": [ 
-                {"match": {"term":  { "query": "abnormal", "operator": "and"}}}, 
-                {"match": {"term":  { "query": "对肋骨", "operator": "and"}}} 
-            ] 
-        } 
-    }, 
-    "size": 0, 
-    "aggs": { 
-        "genes": { 
-            "terms": {  
-                "field": "gene_name", 
-                "size": 1000000 
-            } 
-        }
-    } 
-}'
-```

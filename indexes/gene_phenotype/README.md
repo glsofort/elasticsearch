@@ -23,7 +23,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT "https://localhost:
             "gene_name": {
                 "type": "keyword"
             },
-            "omim_id": {
+            "disease_id": {
                 "type": "keyword",
                 "index": false
             },
@@ -35,7 +35,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT "https://localhost:
                 "type": "keyword",
                 "index": false
             },
-            "hpo_id": {
+            "HPO_id": {
                 "type": "keyword",
                 "index": false
             },
@@ -51,5 +51,53 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT "https://localhost:
 ## Import
 
 ```bash
-python3 import.py --file data/gene_phenotype.txt --cacerts ../../http_ca.crt --name gene_phenotype --password $ELASTIC_PASSWORD
+python3 import.py --file data.txt --cacerts ../../http_ca.crt --password $ELASTIC_PASSWORD
+```
+
+## Test
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://localhost:9200/gene_phenotype/_search?pretty" -H 'Content-Type: application/json' -d '
+{ 
+    "query": { 
+        "bool": { 
+            "should": [ 
+                {"match": {"term":  { "query": "abnormal", "operator": "and"}}}, 
+                {"match": {"term":  { "query": "对肋骨", "operator": "and"}}} 
+            ] 
+        } 
+    }, 
+    "size": 0, 
+    "aggs": { 
+        "genes": { 
+            "terms": {  
+                "field": "gene_name.keyword", 
+                "size": 1000000 
+            } 
+        }
+    } 
+}'
+```
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://localhost:9200/gene_phenotype/_search?pretty" -H 'Content-Type: application/json' -d '
+{ 
+    "query": { 
+        "bool": { 
+            "should": [ 
+                {"match": {"term":  { "query": "abnormal", "operator": "and"}}}, 
+                {"match": {"term":  { "query": "对肋骨", "operator": "and"}}} 
+            ] 
+        } 
+    }, 
+    "size": 0, 
+    "aggs": { 
+        "genes": { 
+            "terms": {  
+                "field": "gene_name.keyword", 
+                "size": 1000000 
+            } 
+        }
+    } 
+}'
 ```
