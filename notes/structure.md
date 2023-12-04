@@ -23,9 +23,9 @@ Number of versions (2):
 - Chinese
 - English
 
-Note:
-- Based on OMIM database
-- Based on table `gene_clinical_synopsis` and `phenotypes`
+Notes:
+- Based on OMIM database.
+- Based on table `gene_clinical_synopsis` and `phenotypes` (From OMIM).
 - Indicates relationship between genes and clinical synopsis + phenotype names in OMIM database
 
 Purpose: 
@@ -42,26 +42,43 @@ Purpose:
 }
 ```
 
+### phenotype_term
 
-### gene_terms
+Number of versions: 1 (only english term only)
 
-Number of versions (2):
-- Chinese
-- English
-
-Note:
-- Based on HPO database in table `gene_phenotype`
-- Indicates relationship between genes and phenotypes in HPO database
+Notes:
+- Based on HPO database in table `gene_phenotype`.
+- This index only contain terms in English.
+- Optimized with fuzzy English input.
+- Indicates list of English terms.
 
 Purpose:
-1. Find `gene_name` from `term`
-2. Find `term` based on fuzzy input search
+1. Find `term` based on fuzzy input phenotype.
+
+```json
+{
+    "term": "gene_phenotype.HPO_search"
+}
+```
+
+
+### gene_phenotype
+
+Number of versions: 1 (using smartcn analyzer for term data contains both chinese & english)
+
+Notes:
+- Based on HPO database in table `gene_phenotype`.
+- Indicates relationship between genes and phenotypes in HPO database.
+
+Purpose:
+1. Find `gene_name` from `term`.
+2. Find `term` based on fuzzy input phenotype.
 
 ```json
 {
     "gene_name": "gene_phenotype.gene_symbol",
-    "term": "gene_phenotype.HPO_search", //  Chinese | English 
-    "english_term": "gene_phenotype.HPO_text", // Only exist in chinese version
+    "term": "gene_phenotype.HPO_search", //  Can be chinese or english
+    "english_term": "gene_phenotype.HPO_text",
     "term_name": "gene_phenotype.HPO_term_name",
     "omim_id": "gene_phenotype.Disease_ID",
     "hpo_id": "gene_phenotype.HPO_ID",
@@ -75,8 +92,8 @@ Purpose:
 Number of versions (1):
 - English
 
-Note:
-- Based on `HGNC` table
+Notes:
+- Based on `HGNC` table.
 
 ```json
 {
@@ -91,8 +108,8 @@ Number of versions (2):
 - English
 - Chinese
 
-Note:
-- Based on `genes` table
+Notes:
+- Based on `genes` table.
 
 ```json
 {
@@ -108,7 +125,7 @@ Note:
 Number of versions (1):
 - English
 
-Note:
+Notes:
 - Based on `HGMD` table
 
 ```json
@@ -127,7 +144,7 @@ Note:
 Number of versions (1):
 - English
 
-Note:
+Notes:
 - Based on `CLINSIG` table.
 
 ```json
@@ -148,7 +165,7 @@ Note:
 Number of versions (1):
 - English
 
-Note:
+Notes:
 - Based on `clinvar_max_af` table.
 
 Purpose:
@@ -167,7 +184,7 @@ Purpose:
 Number of versions (1):
 - English
 
-Note: 
+Notes: 
 - Based on table `transcript_info`.
 
 ```json

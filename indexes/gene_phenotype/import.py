@@ -3,8 +3,9 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 
 user_login="elastic"
+index_name="gene_phenotype"
 
-def main(ca_certs, file_path, password, index_name):
+def main(ca_certs, file_path, password):
     # Connect to Elasticsearch
     es=Elasticsearch(hosts=["https://localhost:9200"], ca_certs=ca_certs, basic_auth=(user_login, password), verify_certs=True)
 
@@ -43,7 +44,6 @@ if __name__ == '__main__':
     # Add arguments
     parser.add_argument('--cacerts', type=str, help='Ca cert file path', required=True)
     parser.add_argument('--file', type=str, help='Data file', required=True)
-    parser.add_argument('--name', type=str, help='Index name', required=True)
     parser.add_argument('--pw',  type=str, help='Password', required=True)
 
 

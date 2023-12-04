@@ -12,6 +12,8 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: applica
 
 ```bash
 curl -X GET "localhost:9200/hpo_omim_terms/_settings?pretty"
+
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/hpo_omim_terms/_settings?pretty
 ```
 
 ```bash
