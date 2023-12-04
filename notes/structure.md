@@ -9,6 +9,14 @@
 7. clinvar_max_af x
 8. transcript_info x
 
+
+### More information
+
+#### Filter variants
+
+
+#### Create sample
+
 ### gene_clinical_synopsis
 
 Number of versions (2):
@@ -47,6 +55,7 @@ Note:
 
 Purpose:
 1. Find `gene_name` from `term`
+2. Find `term` based on fuzzy input search
 
 ```json
 {

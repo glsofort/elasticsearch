@@ -1,10 +1,33 @@
 # GLS Elasticsearch
 
+## Common Command
+
+### View index information
+
+```bash
+curl -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_terms?pretty
+
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_terms?pretty
+```
+
+```bash
+curl -X GET "localhost:9200/hpo_omim_terms/_settings?pretty"
+```
+
+```bash
+curl http://localhost:9200/_cat/indices
+
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/indices
+```
+
 ## Import data
 
-### Import Gene - Clinical Synopsis
+
+### Import
 ```bash
-python3 import.py --index gene_clinical_synopsis --file data/gene_clinical_synopsis.txt
+export ELASTIC_PASSWORD="nPmsyAyrh3yVt_Q7iNlR"
+
+python3 gene-terms/import.py --file data/gene_clinical_synopsis.txt --cacerts http_ca.crt --password $ELASTIC_PASSWORD
 ```
 
 ### Import Gene - HPO
@@ -20,6 +43,11 @@ curl -X PUT "localhost:9200/_settings"  -H 'Content-Type: application/json' -d'
 {
     "index.max_result_window": 1000000
 }'
+```
+
+### Example with running elasticsearch in docker
+```bash
+curl --cacert http_ca.crt -u elastic:nPmsyAyrh3yVt_Q7iNlR https://localhost:9200
 ```
 
 ### Index: gene_clinical_synopsis
