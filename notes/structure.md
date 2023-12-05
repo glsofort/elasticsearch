@@ -9,42 +9,54 @@
 7. clinvar_max_af x
 8. transcript_info x
 
+### Index progress
+1. gene_clinical_synopsis x
+2. phenotype_term x
+3. gene_phenotype x
+4. hgnc
+5. genes
+6. hgmd
+7. clinsig
+8. clinvar_max_af
+9. transcript_info
 
-### More information
 
-#### Filter variants
-
-
-#### Create sample
+## Indexes
 
 ### gene_clinical_synopsis
 
 Number of versions (2):
+
 - Chinese
 - English
 
 Notes:
+
 - Based on OMIM database.
 - Based on table `gene_clinical_synopsis` and `phenotypes` (From OMIM).
 - Indicates relationship between genes and clinical synopsis + phenotype names in OMIM database
 
-Purpose: 
+Purpose:
+
 1. Find `clinical_synopsis` from `gene_name`
 2. Find `gene_name` from terms (exist in `pheno_name` and `clinical_synopsis` field)
 
 Format:
+
 ```json
 {
-    "gene_name": "gene_clinical_synopsis.gene_name",
-    "gene_mim_number": "gene_clinical_synopsis.gene_omim",
-    "pheno_mim_number": "gene_clinical_synopsis.pheno_omim",
-    "pheno_name": "phenotypes.name", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
-    "clinical_synopsis": "phenotypes.clinical_synopsis", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
-    "pheno_description": "phenotypes.description"
+  "gene_name": "gene_clinical_synopsis.gene_name",
+  "gene_mim_number": "gene_clinical_synopsis.gene_omim",
+  "pheno_mim_number": "gene_clinical_synopsis.pheno_omim",
+  "pheno_name": "phenotypes.name", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
+  "clinical_synopsis": "phenotypes.clinical_synopsis", //  Chinese | English (with phenotypes.omim_number = gene_clinical_synopsis.pheno_omim)
+  "pheno_description": "phenotypes.description",
+  "location": "gene_clinical_synopsis.location"
 }
 ```
 
 Data retrieval:
+
 ```sql
 SELECT
 	g.gene_name as gene_name,
@@ -52,162 +64,196 @@ SELECT
 	g.pheno_omim as pheno_mim_number,
 	p.name as pheno_name,
 	p.clinical_synopsis as clinical_synopsis,
-	p.description as pheno_description
+	p.description as pheno_description,
+    g.location as location
 FROM
 	gene_clinical_synopsis AS g
 	LEFT JOIN phenotypes AS p ON g.pheno_omim = p.omim_number
 ```
 
-### phenotype_term x
+### phenotype_term
 
 Number of versions: 1 (only english term only)
 
 Notes:
+
 - Based on HPO database in table `gene_phenotype`.
 - This index only contain terms in English.
 - Optimized with fuzzy English input.
 - Indicates list of English terms.
 
 Purpose:
+
 1. Find `term` based on fuzzy input phenotype.
 
 ```json
 {
-    "term": "gene_phenotype.HPO_search"
+  "term": "gene_phenotype.HPO_search"
 }
 ```
 
-
-### gene_phenotype x
+### gene_phenotype
 
 Number of versions: 1 (using smartcn analyzer for term data contains both chinese & english)
 
 Notes:
+
 - Based on HPO database in table `gene_phenotype`.
 - Indicates relationship between genes and phenotypes in HPO database.
 
 Purpose:
+
 1. Find `gene_name` from `term`.
 2. Find `term` based on fuzzy input phenotype.
 
 ```json
 {
-    "gene_name": "gene_phenotype.gene_symbol",
-    "term": "gene_phenotype.HPO_term_name", //  Can be chinese or english
-    "english_term": "gene_phenotype.HPO_text",
-    "disease_id": "gene_phenotype.Disease_ID",
-    "HPO_id": "gene_phenotype.HPO_ID",
-    "source": "gene_phenotype.Source",
-    "gene_id": "gene_phenotype.gene_id"
+  "gene_name": "gene_phenotype.gene_symbol",
+  "term": "gene_phenotype.HPO_term_name", //  Can be chinese or english
+  "english_term": "gene_phenotype.HPO_text",
+  "disease_id": "gene_phenotype.Disease_ID",
+  "HPO_id": "gene_phenotype.HPO_ID",
+  "source": "gene_phenotype.Source",
+  "gene_id": "gene_phenotype.gene_id"
 }
+```
+
+```sql
+SELECT
+	CASE WHEN Disease_ID = '' THEN '.' ELSE Disease_ID END AS disease_id,
+	Source AS source,
+	CASE WHEN gene_symbol = '' THEN '.' ELSE gene_symbol END AS gene_name,
+	gene_id,
+	HPO_ID AS HPO_id,
+	HPO_text AS english_term,
+	HPO_term_name AS term
+FROM
+	gene_phenotype;
+
+SELECT * FROM gene_phenotype WHERE length(HPO_term_name) = char_length(HPO_term_name);
+
+UPDATE gene_phenotype SET HPO_text = HPO_term_name WHERE HPO_text is null
 ```
 
 ### hgnc
 
 Number of versions (1):
+
 - English
 
 Notes:
+
 - Based on `HGNC` table.
 
 ```json
 {
-    "gene_name": "HGNC.gene_symbol",
-    "hgnc_id": "HGNC.hgnc_id"
+  "gene_name": "HGNC.gene_symbol",
+  "hgnc_id": "HGNC.hgnc_id"
 }
 ```
 
 ### genes
 
 Number of versions (2):
+
 - English
 - Chinese
 
 Notes:
+
 - Based on `genes` table.
 
 ```json
 {
-    "gene_name": "genes.name",
-    "full_name": "genes.full_name",
-    "function": "genes.function", //  Chinese | English 
-    "GHR_metadata": "genes.GHR_metadata" // Chinese | English
+  "gene_name": "genes.name",
+  "full_name": "genes.full_name",
+  "function": "genes.function", //  Chinese | English
+  "GHR_metadata": "genes.GHR_metadata" // Chinese | English
 }
 ```
 
 ### hgmd
 
 Number of versions (1):
+
 - English
 
 Notes:
+
 - Based on `HGMD` table
 
 ```json
 {
-    "key": "HGMD.chrom_HGMD.pos_HGMD.ref_HGMD.alt",
-    "chrom": "HGMD.chrom",
-    "pos": "HGMD.pos",
-    "ref": "HGMD.ref",
-    "alt": "HGMD.alt",
-    "info": "HGMD.info"
+  "key": "HGMD.chrom_HGMD.pos_HGMD.ref_HGMD.alt",
+  "chrom": "HGMD.chrom",
+  "pos": "HGMD.pos",
+  "ref": "HGMD.ref",
+  "alt": "HGMD.alt",
+  "info": "HGMD.info"
 }
 ```
 
 ### clinsig
 
 Number of versions (1):
+
 - English
 
 Notes:
+
 - Based on `CLINSIG` table.
 
 ```json
 {
-    "key": "CLINSIG.chrom_CLINSIG.pos_CLINSIG.ref_CLINSIG.alt",
-    "chrom": "CLINSIG.chrom",
-    "pos": "CLINSIG.pos",
-    "ref": "CLINSIG.ref",
-    "alt": "CLINSIG.alt",
-    "variant_id": "CLINSIG.variant_id",
-    "clinsig": "CLINSIG.CLINSIG",
-    "clinsig_ch": "CLINSIG.CLINSIG_CH"
+  "key": "CLINSIG.chrom_CLINSIG.pos_CLINSIG.ref_CLINSIG.alt",
+  "chrom": "CLINSIG.chrom",
+  "pos": "CLINSIG.pos",
+  "ref": "CLINSIG.ref",
+  "alt": "CLINSIG.alt",
+  "variant_id": "CLINSIG.variant_id",
+  "clinsig": "CLINSIG.CLINSIG",
+  "clinsig_ch": "CLINSIG.CLINSIG_CH"
 }
 ```
 
 ### clinvar_max_af
 
 Number of versions (1):
+
 - English
 
 Notes:
+
 - Based on `clinvar_max_af` table.
 
 Purpose:
+
 - Find from `gene name`
 
 ```json
 {
-    "gene_name": "clinvar_max_af.gene",
-    "max_af": "clinvar_max_af.MAX_AF",
-    "max_af_pops": "clinvar_max_af.MAX_AF_POPS"
+  "gene_name": "clinvar_max_af.gene",
+  "max_af": "clinvar_max_af.MAX_AF",
+  "max_af_pops": "clinvar_max_af.MAX_AF_POPS"
 }
 ```
 
 ### transcript_info
 
 Number of versions (1):
+
 - English
 
-Notes: 
+Notes:
+
 - Based on table `transcript_info`.
 
 ```json
 {
-    "ENSG": "transcript_info.ENSG",
-    "ENST": "transcript_info.ENST",
-    "gene_name": "transcript_info.gene",
-    "length": "transcript_info.length",
-    "transcript": "transcript_info.transcript"
+  "ENSG": "transcript_info.ENSG",
+  "ENST": "transcript_info.ENST",
+  "gene_name": "transcript_info.gene",
+  "length": "transcript_info.length",
+  "transcript": "transcript_info.transcript"
 }
 ```

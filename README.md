@@ -52,6 +52,18 @@ curl -X PUT "localhost:9200/_settings"  -H 'Content-Type: application/json' -d'
 {
     "index.max_result_window": 1000000
 }'
+
+
+curl -X PUT --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD "https://localhost:9200/_settings"  -H 'Content-Type: application/json' -d'
+{
+    "index.max_result_window": 1000000
+}'
+
+
+curl -X PUT --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD "https://localhost:9200/_cluster/settings?pretty"  -H 'Content-Type: application/json' -d'
+{
+    "search.max_buckets": 1000000
+}'
 ```
 
 ### Example with running elasticsearch in docker

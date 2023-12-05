@@ -25,7 +25,8 @@ def main(ca_certs, file_path, password):
                 'pheno_mim_number': fields[2],
                 'pheno_name': fields[3],
                 'clinical_synopsis': fields[4],
-                'pheno_description': fields[5]
+                'pheno_description': fields[5],
+                "location": fields[6]
             }
             action = {
                 '_index': index_name,
