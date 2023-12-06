@@ -10,16 +10,16 @@
 8. transcript_info x
 
 ### Index progress
+
 1. gene_clinical_synopsis x
 2. phenotype_term x
 3. gene_phenotype x
-4. hgnc
+4. hgnc x
 5. genes
-6. hgmd
-7. clinsig
-8. clinvar_max_af
-9. transcript_info
-
+6. hgmd x
+7. clinsig x
+8. clinvar_max_af x
+9. transcript_info x
 
 ## Indexes
 
@@ -145,30 +145,51 @@ Notes:
 
 - Based on `HGNC` table.
 
+```sql
+SELECT gene_name, hgnc_id as HGNC_id FROM HGNC
+```
+
 ```json
 {
   "gene_name": "HGNC.gene_symbol",
-  "hgnc_id": "HGNC.hgnc_id"
+  "HGNC_id": "HGNC.hgnc_id"
 }
 ```
 
 ### genes
 
-Number of versions (2):
-
-- English
-- Chinese
+Number of versions (1):
 
 Notes:
 
 - Based on `genes` table.
 
+```sql
+UPDATE genes
+ SET GHR_metadata=REPLACE(GHR_metadata,'\n',''),
+ GHR_metadata_ch=REPLACE(GHR_metadata,'\n',''),
+ function_ch=REPLACE(function_ch, '\n', ''),
+ `function`=REPLACE(`function`, '\n', '');
+
+SELECT NAME AS
+	gene_name,
+	CASE WHEN full_name is null or full_name = "" THEN '.' ELSE full_name END AS full_name,
+	CASE WHEN `function` is null or `function` = "" THEN '.' ELSE `function` END AS `function`,
+	CASE WHEN GHR_metadata is null or GHR_metadata = "" THEN '.' ELSE GHR_metadata END AS GHR_metadata,
+	CASE WHEN function_ch is null or function_ch = "" THEN '.' ELSE function_ch END AS function_ch,
+	CASE WHEN GHR_metadata_ch is null or GHR_metadata_ch = "" THEN '.' ELSE GHR_metadata_ch END AS GHR_metadata_ch
+FROM
+	`genes`
+```
+
 ```json
 {
   "gene_name": "genes.name",
   "full_name": "genes.full_name",
-  "function": "genes.function", //  Chinese | English
-  "GHR_metadata": "genes.GHR_metadata" // Chinese | English
+  "function": "genes.function",
+  "GHR_metadata": "genes.GHR_metadata",
+  "function_ch": "genes.function_ch",
+  "GHR_metadata_ch": "genes.GHR_metadata_ch"
 }
 ```
 
@@ -181,6 +202,18 @@ Number of versions (1):
 Notes:
 
 - Based on `HGMD` table
+
+```sql
+SELECT
+	CONCAT( CHROM, "_", POS, "_", REF, "_", ALT ) AS `key`,
+	CHROM AS chrom,
+	POS AS pos,
+	REF AS ref,
+	ALT AS alt,
+	INFO AS info
+FROM
+	HGMD
+```
 
 ```json
 {
@@ -202,6 +235,20 @@ Number of versions (1):
 Notes:
 
 - Based on `CLINSIG` table.
+
+```sql
+SELECT
+	CONCAT( CHROM, "_", POS, "_", REF, "_", ALT ) AS `key`,
+	CHROM AS chrom,
+	POS AS pos,
+	REF AS ref,
+	ALT AS alt,
+	VARIANT_ID AS variant_id,
+	CASE WHEN CLNSIG is null THEN '.' ELSE CLNSIG END AS clinsig,
+	CASE WHEN CLNSIG_CH is null THEN '.' ELSE CLNSIG_CH END AS clinsig_ch
+FROM
+	`CLINSIG`
+```
 
 ```json
 {
@@ -230,11 +277,15 @@ Purpose:
 
 - Find from `gene name`
 
+```sql
+SELECT gene as gene_name, MAX_AF as max_af, MAX_AF_POPS as max_af_pop FROM clinvar_max_af
+```
+
 ```json
 {
   "gene_name": "clinvar_max_af.gene",
   "max_af": "clinvar_max_af.MAX_AF",
-  "max_af_pops": "clinvar_max_af.MAX_AF_POPS"
+  "max_af_pop": "clinvar_max_af.MAX_AF_POPS"
 }
 ```
 
@@ -247,6 +298,10 @@ Number of versions (1):
 Notes:
 
 - Based on table `transcript_info`.
+
+```sql
+SELECT ENSG, ENST, gene as gene_name, length, CASE WHEN transcript is not null THEN transcript else "." END as transcript FROM transcript_info
+```
 
 ```json
 {

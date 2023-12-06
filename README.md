@@ -13,7 +13,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_c
 ```bash
 curl -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_term?pretty
 
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X GET https://localhost:9200/phenotype_term?pretty
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -H 'Content-Type: application/json' -X GET https://localhost:9200/hgnc?pretty
 ```
 
 ### View index settings
