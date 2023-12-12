@@ -9,6 +9,18 @@
 7. clinvar_max_af x
 8. transcript_info x
 
+### Build script test progress
+
+1. gene_clinical_synopsis
+2. phenotype_term
+3. gene_phenotype
+4. hgnc
+5. genes
+6. hgmd
+7. clinsig
+8. clinvar_max_af
+9. transcript_info
+
 ### Index progress
 
 1. gene_clinical_synopsis x

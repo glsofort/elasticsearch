@@ -18,7 +18,7 @@ def main(ca_certs, file_path, password):
     with open(file_path, 'r') as file:
         for line in file:
             fields = line.strip().split('\t')
-            print(i)
+            # print(i)
             doc = {
                 'term': fields[0]
             }
@@ -29,7 +29,9 @@ def main(ca_certs, file_path, password):
             actions.append(action)
             i+=1
     # Perform the bulk indexing
+    print('Importing phenotype_term')
     bulk(es, actions)
+    print('Finish phenotype_term')
 
 if __name__ == '__main__':
     # Create the argument parser

@@ -18,7 +18,7 @@ def main(ca_certs, file_path, password):
     with open(file_path, 'r') as file:
         for line in file:
             fields = line.strip().split('\t')
-            print(f"{i}_{fields}_{len(fields)}")
+            # print(f"{i}_{fields}_{len(fields)}")
             doc = {
                 'disease_id': fields[0],
                 'source': fields[1],
@@ -35,7 +35,9 @@ def main(ca_certs, file_path, password):
             actions.append(action)
             i+=1
     # Perform the bulk indexing
+    print('Importing gene_phenotype')
     bulk(es, actions)
+    print('Finish gene_phenotype')
 
 if __name__ == '__main__':
     # Create the argument parser

@@ -18,7 +18,7 @@ def main(ca_certs, file_path, password):
     with open(file_path, 'r') as file:
         for line in file:
             fields = line.strip().split('\t')
-            print(f"{i}_{fields}_{len(fields)}")
+            # print(f"{i}_{fields}_{len(fields)}")
             doc = {
                 'gene_name': fields[0],
                 'HGNC_id': fields[1]
@@ -30,7 +30,9 @@ def main(ca_certs, file_path, password):
             actions.append(action)
             i+=1
     # Perform the bulk indexing
+    print('Importing HGNC')
     bulk(es, actions)
+    print('Finish HGNC')
 
 if __name__ == '__main__':
     # Create the argument parser

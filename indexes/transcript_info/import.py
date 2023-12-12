@@ -18,7 +18,7 @@ def main(ca_certs, file_path, password):
     with open(file_path, 'r') as file:
         for line in file:
             fields = line.strip().split('\t')
-            print(f"{i}_{fields}_{len(fields)}")
+            # print(f"{i}_{fields}_{len(fields)}")
             doc = {
                 'ENSG': fields[0],
                 'ENST': fields[1],
@@ -33,7 +33,9 @@ def main(ca_certs, file_path, password):
             actions.append(action)
             i+=1
     # Perform the bulk indexing
+    print('Importing transcript_info')
     bulk(es, actions)
+    print('Finish transcript_info')
 
 if __name__ == '__main__':
     # Create the argument parser

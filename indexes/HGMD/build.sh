@@ -3,11 +3,8 @@
 # Log password
 echo ${ELASTIC_PASSWORD}
 
-# Prepare data
-unzip -f data.zip
-
 # Create index
-curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/clinsig?pretty" -H 'Content-Type: application/json' -d'
+curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/hgmd?pretty" -H 'Content-Type: application/json' -d'
 {
     "mappings":{
         "properties": {
@@ -30,15 +27,7 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
                 "type": "keyword",
                 "index": false
             },
-            "variant_id": {
-                "type": "keyword",
-                "index": false
-            },
-            "clinsig": {
-                "type": "keyword",
-                "index": false
-            },
-            "clinsig_ch": {
+            "info": {
                 "type": "keyword",
                 "index": false
             }
@@ -46,6 +35,5 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
     }
 }'
 
-# Import data
+# Import 
 python3 import.py --file data.txt --cacerts ../../http_ca.crt --password ${ELASTIC_PASSWORD}
-
