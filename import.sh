@@ -1,6 +1,15 @@
 #!/bin/bash
 
-export ELASTIC_PASSWORD=$1
+while getopts p: flag; do
+    case "${flag}" in
+    p) ELASTIC_PASSWORD=${OPTARG};;
+    esac
+done
+
+if [ -z "${ELASTIC_PASSWORD}" ]; then
+    echo "Elastic Password is required. Please specify -p option!"
+    exit -1
+fi
 
 ROOT_FOLDER=${PWD}
 
