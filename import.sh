@@ -2,14 +2,16 @@
 
 while getopts p: flag; do
     case "${flag}" in
-    p) ELASTIC_PASSWORD=${OPTARG};;
+    p) elastic_password=${OPTARG};;
     esac
 done
 
-if [ -z "${ELASTIC_PASSWORD}" ]; then
+if [ -z "${elastic_password}" ]; then
     echo "Elastic Password is required. Please specify -p option!"
     exit -1
 fi
+
+export ELASTIC_PASSWORD=${elastic_password}
 
 ROOT_FOLDER=${PWD}
 
