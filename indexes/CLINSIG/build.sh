@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Log password
+echo ${ELASTIC_PASSWORD}
+
 # Create index
 curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/clinsig?pretty" -H 'Content-Type: application/json' -d'
 {
