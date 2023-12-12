@@ -1,5 +1,11 @@
 # GLS Elasticsearch
 
+## Build Command
+
+```bash
+/bin/bash import.sh ${ELASTIC_PASSWORD}
+```
+
 ## Common Command
 
 ### View all indexes
