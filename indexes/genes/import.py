@@ -18,7 +18,7 @@ def main(ca_certs, file_path, password):
     with open(file_path, 'r') as file:
         for line in file:
             fields = line.strip().split('\t')
-            print(f"{i}_{fields}_{len(fields)}")
+            # print(f"{i}_{fields}_{len(fields)}")
             doc = {
                 'gene_name': fields[0],
                 'full_name': fields[1],
