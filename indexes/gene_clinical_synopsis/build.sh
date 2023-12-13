@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create index
-curl --cacert http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/gene_clinical_synopsis?pretty" -H 'Content-Type: application/json' -d'
+curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/gene_clinical_synopsis?pretty" -H 'Content-Type: application/json' -d'
 {
     "settings": {
         "analysis" : {

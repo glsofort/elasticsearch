@@ -12,3 +12,4 @@ docker run --rm --memory="4g" --name es01 --net elastic -p 9200:9200 -itd  build
 
 docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
 
+# Qdcfx*fM8YlpUxg4Qwb9

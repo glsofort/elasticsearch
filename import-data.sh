@@ -29,7 +29,7 @@ cd ${INDEX_PATH}/gene_clinical_synopsis
 /bin/bash build.sh
 
 # gene_phenotype
-cd ${INDEX_PATH}/clinvar_max_af
+cd ${INDEX_PATH}/gene_phenotype
 /bin/bash build.sh
 
 # genes
