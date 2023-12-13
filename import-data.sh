@@ -25,16 +25,16 @@ cd ${INDEX_PATH}/clinvar_max_af
 /bin/bash build.sh
 
 # gene_clinical_synopsis
-# cd ${INDEX_PATH}/gene_clinical_synopsis
-# /bin/bash build.sh
+cd ${INDEX_PATH}/gene_clinical_synopsis
+/bin/bash build.sh
 
 # gene_phenotype
 cd ${INDEX_PATH}/clinvar_max_af
 /bin/bash build.sh
 
 # genes
-# cd ${INDEX_PATH}/genes
-# /bin/bash build.sh
+cd ${INDEX_PATH}/genes
+/bin/bash build.sh
 
 # HGMD
 cd ${INDEX_PATH}/HGMD

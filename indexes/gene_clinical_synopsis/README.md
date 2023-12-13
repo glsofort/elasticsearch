@@ -68,7 +68,7 @@ curl --cacert ../../http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://lo
         "bool": { 
             "should": [ 
                 {"match": {"gene_name":  { "query": "BRCA1", "operator": "and"}}}, 
-                {"match": {"clinical_synopsis":  { "query": "COL2A1", "operator": "and"}}}
+                {"match": {"gene_name":  { "query": "COL2A1", "operator": "and"}}}
             ] 
         } 
     }, 

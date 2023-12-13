@@ -45,7 +45,7 @@ Number of versions (2):
 Notes:
 
 - Based on OMIM database.
-- Based on table `gene_clinical_synopsis` and `phenotypes` (From OMIM).
+- Based on table `gene_clinical_synopsis` and `phenotypes`(omim) (From OMIM).
 - Indicates relationship between genes and clinical synopsis + phenotype names in OMIM database
 
 Purpose:
@@ -73,14 +73,14 @@ Data retrieval:
 SELECT
 	g.gene_name as gene_name,
 	g.gene_omim as gene_mim_number,
-	g.pheno_omim as pheno_mim_number,
-	p.name as pheno_name,
+	CASE WHEN g.pheno_omim = '' or g.pheno_omim is null THEN '.' ELSE g.pheno_omim END AS pheno_mim_number,
+	IF (p.name is not null and p.name != "", p.name, g.pheno_name ) as pheno_name,
 	p.clinical_synopsis as clinical_synopsis,
 	p.description as pheno_description,
-    g.location as location
+  g.location as location
 FROM
 	gene_clinical_synopsis AS g
-	LEFT JOIN phenotypes AS p ON g.pheno_omim = p.omim_number
+	LEFT JOIN omim AS p ON g.pheno_omim = p.omim_number
 ```
 
 ### phenotype_term
@@ -178,10 +178,30 @@ Notes:
 
 ```sql
 UPDATE genes
- SET GHR_metadata=REPLACE(GHR_metadata,'\n',''),
- GHR_metadata_ch=REPLACE(GHR_metadata,'\n',''),
- function_ch=REPLACE(function_ch, '\n', ''),
- `function`=REPLACE(`function`, '\n', '');
+SET `function` =
+IF
+	(
+		NCBI_summary IS NOT NULL
+		AND NCBI_summary != "",
+		NCBI_summary,
+	IF
+		(
+			summary IS NOT NULL
+			AND summary != "",
+			summary,
+	IF
+	( GHR_summary IS NOT NULL AND GHR_summary != "", GHR_summary, NULL )));
+
+UPDATE genes
+INNER JOIN genes_zh ON genes.id = genes_zh.id
+SET genes.`function_ch` = IF (genes_zh.`function` is not null and genes_zh.`function` != "", genes_zh.`function`, NULL)
+WHERE genes.`function_ch` is null and  genes.`function` is not null;
+
+UPDATE genes
+ SET GHR_metadata=REPLACE(GHR_metadata,'\n',' '),
+ GHR_metadata_ch=REPLACE(GHR_metadata_ch,'\n',' '),
+ function_ch=REPLACE(function_ch, '\n', ' '),
+ `function`=REPLACE(`function`, '\n', ' ');
 
 SELECT NAME AS
 	gene_name,
