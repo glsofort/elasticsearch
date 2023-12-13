@@ -1,7 +1,7 @@
 ## Test
 
 ```bash
-curl --cacert ../../http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://localhost:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
+curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD}  -XPOST "https://localhost:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
 { 
     "query": { 
         "bool": { 
