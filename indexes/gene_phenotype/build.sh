@@ -4,7 +4,7 @@
 echo ${ELASTIC_PASSWORD}
 
 # Prepare data
-unzip -f data.zip
+unzip -o data.zip
 
 # Create index
 curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/gene_phenotype?pretty" -H 'Content-Type: application/json' -d'
