@@ -203,6 +203,12 @@ UPDATE genes
  function_ch=REPLACE(function_ch, '\n', ' '),
  `function`=REPLACE(`function`, '\n', ' ');
 
+UPDATE genes
+ SET GHR_metadata=REPLACE(GHR_metadata,'\r',' '),
+ GHR_metadata_ch=REPLACE(GHR_metadata_ch,'\r',' '),
+ function_ch=REPLACE(function_ch, '\r', ' '),
+ `function`=REPLACE(`function`, '\r', ' ');
+
 SELECT NAME AS
 	gene_name,
 	CASE WHEN full_name is null or full_name = "" THEN '.' ELSE full_name END AS full_name,
