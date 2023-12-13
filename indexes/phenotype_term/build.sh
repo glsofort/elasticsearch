@@ -42,7 +42,12 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
         "properties": {
             "term": {
                 "type": "text",
-                "analyzer": "edgeNGram_analyzer"
+                "analyzer": "edgeNGram_analyzer",
+                "fields": {
+                    "keyword": { 
+                        "type": "keyword"
+                    }
+                }
             }
         }
     }

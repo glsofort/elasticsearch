@@ -22,7 +22,12 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
         "properties": {
             "term": {
                 "type": "text",
-                "analyzer": "default"
+                "analyzer": "default",
+                "fields": {
+                    "keyword": { 
+                        "type": "keyword"
+                    }
+                }
             },
             "gene_name": {
                 "type": "keyword"

@@ -27,11 +27,21 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
             },
             "pheno_name": {
                 "type": "text",
-                "analyzer": "default"
+                "analyzer": "default",
+                "fields": {
+                    "keyword": { 
+                        "type": "keyword"
+                    }
+                }
             },
             "clinical_synopsis": {
                 "type": "text",
-                "analyzer": "default"
+                "analyzer": "default",
+                "fields": {
+                    "keyword": { 
+                        "type": "keyword"
+                    }
+                }
             },
             "pheno_description": {
                 "type": "keyword",

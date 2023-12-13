@@ -45,13 +45,13 @@ curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://local
             ] 
         } 
     }, 
-    "size": 10, 
+    "size": 0, 
     "aggs": { 
         "items": { 
             "multi_terms": {
                 "terms": [
-                    {"field": "gene_name.keyword"},
-                    {"field": "pheno_mim_number.keyword"}
+                    {"field": "gene_name"},
+                    {"field": "pheno_name"}
                 ],
                 "size": 1000000,
                 "order": { "max_score": "desc" }
@@ -78,9 +78,28 @@ curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://local
         "items": { 
             "multi_terms": {
                 "terms": [
-                    {"field": "gene_name.keyword"}
+                    {"field": "gene_name"},
+                    {"field": "pheno_name"}
                 ]
             }
+        }
+    } 
+}'
+
+curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://localhost:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
+{ 
+    "query": { 
+        "bool": { 
+            "should": [ 
+                {"match": {"gene_name":  { "query": "BRCA1", "operator": "and"}}}, 
+                {"match": {"gene_name":  { "query": "COL2A1", "operator": "and"}}}
+            ] 
+        } 
+    }, 
+    "size": 0, 
+    "aggs": { 
+        "items": { 
+            "terms": {"field": "gene_name"}
         }
     } 
 }'

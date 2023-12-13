@@ -17,7 +17,7 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD}  -XPOST "https://
     "aggs": { 
         "items": { 
             "terms": {  
-                "field": "gene_name.keyword", 
+                "field": "gene_name", 
                 "size": 1000000,
                 "order": { "max_score": "desc" }
             },
@@ -48,7 +48,7 @@ curl --cacert ../../http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://lo
             "multi_terms": {
                 "terms": [
                     {"field": "gene_name.keyword"},
-                    {"field": "pheno_name.keyword"}
+                    {"field": "pheno_name"}
                 ],
                 "size": 1000000,
                 "order": { "max_score": "desc" }
