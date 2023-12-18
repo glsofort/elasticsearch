@@ -8,7 +8,7 @@ curl --cacert http_ca.crt -u elastic:aPF4a30LlAUcPPx5TVVy  -XPOST "https://local
             ] 
         } 
     }, 
-    "size": 10000, 
+    "size": 0, 
     "aggs": { 
         "items": { 
             "terms": {  
@@ -35,7 +35,7 @@ curl --cacert http_ca.crt -u elastic:aPF4a30LlAUcPPx5TVVy https://localhost:9200
 
 
 
-curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://localhost:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
+curl -k -u elastic:KzEIaLi+mWrHm5l0GX2O  -XPOST "https://120.78.207.31:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
 { 
     "query": { 
         "bool": { 
@@ -45,13 +45,13 @@ curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://local
             ] 
         } 
     }, 
-    "size": 0, 
+    "size": 10, 
     "aggs": { 
         "items": { 
             "multi_terms": {
                 "terms": [
                     {"field": "gene_name"},
-                    {"field": "pheno_name"}
+                    {"field": "pheno_mim_number"}
                 ],
                 "size": 1000000,
                 "order": { "max_score": "desc" }
