@@ -20,15 +20,14 @@ def main(ca_certs, file_path, password):
             fields = line.strip().split('\t')
             # print(f"{i}_{fields}_{len(fields)}")
             doc = {
-                'order_id': fields[0],
-                'key': fields[1],
-                'chrom': fields[2],
-                'pos': fields[3],
-                'ref': fields[4],
-                'alt': fields[5],
-                'variant_id': fields[6],
-                'clinsig': fields[7],
-                'clinsig_ch': fields[8]
+                'key': fields[0],
+                'chrom': fields[1],
+                'pos': fields[2],
+                'ref': fields[3],
+                'alt': fields[4],
+                'variant_id': fields[5],
+                'clinsig': fields[6],
+                'clinsig_ch': fields[7]
             }
             action = {
                 '_index': index_name,

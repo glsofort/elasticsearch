@@ -11,9 +11,6 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
 {
     "mappings":{
         "properties": {
-            "order_id": {
-                "type": "keyword"
-            },
             "key": {
                 "type": "keyword"
             },
