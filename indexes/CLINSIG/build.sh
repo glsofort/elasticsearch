@@ -15,12 +15,10 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
                 "type": "keyword"
             },
             "chrom": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
             },
             "pos": {
-                "type": "keyword",
-                "index": false
+                "type": "integer"
             },
             "ref": {
                 "type": "keyword",
