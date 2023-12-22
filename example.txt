@@ -86,6 +86,42 @@ curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://local
     } 
 }'
 
+
+curl -k -u elastic:KzEIaLi+mWrHm5l0GX2O -XPOST "https://120.78.207.31:9200/clinsig/_search?pretty" -H 'Content-Type: application/json' -d  '
+{ 
+    "query": {
+        "function_score": {
+            "query": { 
+                "bool": {
+                    "must": [
+                        {
+                            "match": {
+                                "chrom": "1"
+                            }
+                        },
+                        {
+                            "match": {
+                                "pos": "10003558"
+                            }
+                        }
+                    ]
+                }
+            },
+            "functions": [
+                {
+                    "exp": {
+                        "pos": {
+                            "origin": "10003558",
+                            "scale": "1"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+     "size": 10
+}'
+
 curl --cacert http_ca.crt -u elastic:KT5UcF0I9v0jX0_iC9zh  -XPOST "https://localhost:9200/gene_clinical_synopsis/_search?pretty" -H 'Content-Type: application/json' -d '
 { 
     "query": { 

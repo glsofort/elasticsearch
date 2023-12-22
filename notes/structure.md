@@ -11,13 +11,13 @@
 
 ### Build script test progress
 
-1. gene_clinical_synopsis
-2. phenotype_term
-3. gene_phenotype
-4. hgnc
-5. genes
-6. hgmd
-7. clinsig
+1. gene_clinical_synopsis x
+2. phenotype_term x
+3. gene_phenotype x
+4. hgnc x
+5. genes x
+6. hgmd x
+7. clinsig x
 8. clinvar_max_af
 9. transcript_info
 

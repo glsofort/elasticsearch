@@ -5,12 +5,30 @@ curl --cacert ../../http_ca.crt -u elastic:$ELASTIC_PASSWORD  -XPOST "https://lo
 { 
     "query": { 
         "bool": { 
-            "should": [ 
-                {"match": {"key":  { "query": "1_10003558_G_A", "operator": "and"}}}, 
-                {"match": {"key":  { "query": "1_100133290_C_A", "operator": "and"}}}
-            ] 
+            "must": [
+                {
+                    "match": {
+                        "chrom": "1"
+                    }
+                },
+                {
+                    "match": {
+                        "pos": "10003558"
+                    }
+                }
+            ]
         } 
     }, 
-    "size": 1000000
+    "functions": [
+        {
+          "exp": {
+            "pos": {
+              "origin": "10003558",
+              "scale": "1"
+            }
+          }
+        }
+      ],
+    "size": 10
 }'
 ```
