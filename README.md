@@ -5,6 +5,7 @@
 ```bash
 /bin/bash import.sh ${ELASTIC_PASSWORD}
 
+export ELASTIC_PASSWORD=GQh++VxKEBwBOl+313Ka
 
 
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_clinical_synopsis/?pretty=true"
