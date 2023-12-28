@@ -35,10 +35,11 @@ def main(ca_certs, file_path, password):
                 "n_lof": fields[12],
                 "exp_syn": fields[13],
                 "exp_lof": fields[14],
-                "syn_z": fields[15],
-                "mis_z": fields[16],
-                "lof_z": fields[17],
-                "pLI": fields[18]
+                "exp_mis": fields[15],
+                "syn_z": fields[16],
+                "mis_z": fields[17],
+                "lof_z": fields[18],
+                "pLI": fields[19]
             }
             action = {
                 '_index': index_name,

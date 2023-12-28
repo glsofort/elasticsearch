@@ -7,7 +7,6 @@
 
 export ELASTIC_PASSWORD=GQh++VxKEBwBOl+313Ka
 
-
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_clinical_synopsis/?pretty=true"
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/phenotype_term/?pretty=true"
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_phenotype/?pretty=true"

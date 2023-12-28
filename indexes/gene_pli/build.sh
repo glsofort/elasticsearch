@@ -64,6 +64,10 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
                 "type": "keyword",
                 "index": false
             },
+            "exp_mis": {
+                "type": "keyword",
+                "index": false
+            },
             "syn_z": {
                 "type": "keyword",
                 "index": false

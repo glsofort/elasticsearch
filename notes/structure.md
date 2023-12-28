@@ -363,7 +363,7 @@ Notes:
 - Based on `gene_pli` table.
 
 ```sql
-SELECT transcript, gene, chr, n_exons, tx_start, tx_end, bp, mu_syn, mu_mis, mu_lof, n_syn, n_mis, n_lof, exp_syn, exp_lof, syn_z, mis_z, lof_z, pLI from gene_pli
+SELECT transcript, gene, chr, n_exons, tx_start, tx_end, bp, mu_syn, mu_mis, mu_lof, n_syn, n_mis, n_lof, exp_syn, exp_lof, exp_mis, syn_z, mis_z, lof_z, pLI from gene_pli
 ```
 
 ```json
@@ -383,6 +383,7 @@ SELECT transcript, gene, chr, n_exons, tx_start, tx_end, bp, mu_syn, mu_mis, mu_
   "n_lof": "gene_pli.n_lof",
   "exp_syn": "gene_pli.exp_syn",
   "exp_lof": "gene_pli.exp_lof",
+  "exp_mis": "gene_pli.exp_mis",
   "syn_z": "gene_pli.syn_z",
   "mis_z": "gene_pli.mis_z",
   "lof_z": "gene_pli.lof_z",
