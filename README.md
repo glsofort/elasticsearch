@@ -4,6 +4,19 @@
 
 ```bash
 /bin/bash import.sh ${ELASTIC_PASSWORD}
+
+
+
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_clinical_synopsis/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/phenotype_term/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_phenotype/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/hgnc/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/genes/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/hgmd/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/clinsig/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/clinvar_max_af/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/transcript_info/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_pli/?pretty=true"
 ```
 
 ## Common Command

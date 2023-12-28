@@ -52,4 +52,8 @@ cd ${INDEX_PATH}/phenotype_term
 cd ${INDEX_PATH}/transcript_info
 /bin/bash build.sh
 
+# gene_pli
+cd ${INDEX_PATH}/gene_pli
+/bin/bash build.sh
+
 echo "Done Import"

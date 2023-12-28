@@ -32,6 +32,7 @@
 7. clinsig x
 8. clinvar_max_af x
 9. transcript_info x
+10. gene_pli
 
 ## Indexes
 
@@ -348,5 +349,43 @@ SELECT ENSG, ENST, gene as gene_name, length, CASE WHEN transcript is not null T
   "gene_name": "transcript_info.gene",
   "length": "transcript_info.length",
   "transcript": "transcript_info.transcript"
+}
+```
+
+### gene_pli
+
+Number of versions (1):
+
+- English
+
+Notes:
+
+- Based on `gene_pli` table.
+
+```sql
+SELECT transcript, gene, chr, n_exons, tx_start, tx_end, bp, mu_syn, mu_mis, mu_lof, n_syn, n_mis, n_lof, exp_syn, exp_lof, syn_z, mis_z, lof_z, pLI from gene_pli
+```
+
+```json
+{
+  "gene": "gene_pli.gene",
+  "transcript": "gene_pli.transcript",
+  "chr": "gene_pli.chr",
+  "n_exons": "gene_pli.n_exons",
+  "tx_start": "gene_pli.tx_start",
+  "tx_end": "gene_pli.tx_end",
+  "bp": "gene_pli.bp",
+  "mu_syn": "gene_pli.mu_syn",
+  "mu_mis": "gene_pli.mu_mis",
+  "mu_lof": "gene_pli.mu_lof",
+  "n_syn": "gene_pli.n_syn",
+  "n_mis": "gene_pli.n_mis",
+  "n_lof": "gene_pli.n_lof",
+  "exp_syn": "gene_pli.exp_syn",
+  "exp_lof": "gene_pli.exp_lof",
+  "syn_z": "gene_pli.syn_z",
+  "mis_z": "gene_pli.mis_z",
+  "lof_z": "gene_pli.lof_z",
+  "pLI": "gene_pli.pLI"
 }
 ```
