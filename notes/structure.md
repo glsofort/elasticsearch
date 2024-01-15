@@ -275,6 +275,10 @@ Notes:
 
 - Based on `CLINSIG` table.
 
+```bash
+bcftools query -f "%CHROM\_%POS\_%REF\_%ALT\t%CHROM\t%POS\t%REF\t%ALT\t%ID\t%INFO/CLNSIG\t%INFO/CLNSIG\n" clinvar_20240107_a.vcf.gz > search_data.txt
+```
+
 ```sql
 SELECT
 	CONCAT( CHROM, "_", POS, "_", REF, "_", ALT ) AS `key`,
