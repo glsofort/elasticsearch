@@ -22,8 +22,7 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
                 "index": false
             },
             "pheno_mim_number": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
             },
             "pheno_name": {
                 "type": "text",
