@@ -56,4 +56,8 @@ cd ${INDEX_PATH}/transcript_info
 cd ${INDEX_PATH}/gene_pli
 /bin/bash build.sh
 
+# hgnc_symbols
+cd ${INDEX_PATH}/hgnc_symbols
+/bin/bash build.sh
+
 echo "Done Import"

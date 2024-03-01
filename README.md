@@ -17,6 +17,7 @@ curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/clinsig/?p
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/clinvar_max_af/?pretty=true"
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/transcript_info/?pretty=true"
 curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/gene_pli/?pretty=true"
+curl -k -u elastic:$ELASTIC_PASSWORD -XDELETE "https://localhost:9200/hgnc_symbols/?pretty=true"
 ```
 
 ## Common Command
