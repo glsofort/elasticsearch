@@ -1,6 +1,5 @@
 #!/bin/bash
 
-hgnc_id	approved_symbol	symbol	type
 # Create index
 curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://localhost:9200/hgnc_symbols?pretty" -H 'Content-Type: application/json' -d'
 {
@@ -8,7 +7,7 @@ curl --cacert ../../http_ca.crt -u elastic:${ELASTIC_PASSWORD} -XPUT "https://lo
         "properties": {
             "hgnc_id": {
                 "type": "keyword"
-            }
+            },
             "approved_symbol": {
                 "type": "keyword"
             },
