@@ -3,7 +3,7 @@
 ## Build Command
 
 ```bash
-/bin/bash import-data.sh -p ${ELASTIC_PASSWORD}
+# /bin/bash import-data.sh -p ${ELASTIC_PASSWORD}
 
 export ELASTIC_PASSWORD=GQh++VxKEBwBOl+313Ka
 
